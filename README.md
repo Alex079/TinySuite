@@ -28,7 +28,7 @@ The interface to a pin change interrupt handler implementation.
 
 The implementation of ATTiny85 port B pin change interrupt handler.
 
-### Exposes
+This header exposes
 - an object **PinChangeB** of class TinyPinChange
 - setupB and teardownB functions
 - **ISR(PCINT0_vect)**
@@ -110,7 +110,9 @@ A set of shortcut defines to put the ATTiny85 in sleep mode. PRR and ADCSRA are 
 
 The 16-byte ring buffer implementation. This implementation does not perform any validation (i.e. it is possible to "get" when "empty" and "put" when "full"), the caller is expected to maintain the buffer consistency.
 <pre>
-Head and tail indices are incremented "from left to right". Start over from the left-hand side on overflow. "X" - some value, " " - some garbage.
+Head and tail indices are incremented "from left to right".
+Start over from the left-hand side on overflow.
+"X" - some value, " " - some garbage.
 ex.1.
      [ XXXXXXXXX      ] 9/16
       ↑        ↑       
@@ -133,8 +135,8 @@ ex.2.
 
 |Method|Parameters|Return|Description|
 |-|-|-|-|
-|countBusy||count|The size of data ready to be read.|
-|countFree||count|The size of free space.|
+|countBusy||count|Get the size of data.|
+|countFree||count|Get the size of free space.|
 |clear|||Mark the buffer as empty.|
 |put|value||Advance the buffer head and put one byte into head.|
 |get||value|Advance the buffer tail and get one byte.|
@@ -191,7 +193,7 @@ Features:
 - full duplex transmission
 - up to 19200 baud at 16 MHz internal oscillator
 - can use any pins for RX and TX
-- can use Timer0 or Timer1 for RX
+- can use Timer0 or Timer1
 - RX and TX are the IDs from the board definition (i.e. PB0)
 
 This header exposes an object **uart** of class TinyUart.
