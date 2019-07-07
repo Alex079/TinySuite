@@ -65,25 +65,25 @@ The interface to a timer interrupt handler implementation.
 |TimerSetup|A pointer to a setup function. The function may accept "ticks" as parameters and should return void.|
 |TimerTeardown|A pointer to a teardown function. The function should return void.|
 
-## [TinyTimer0](src/TinyTimer0.h)
+## [TinyTimer0Compare](src/TinyTimer0Compare.h)
 
 The implementation of ATTiny85 Timer0 "on compare" interrupt handler.
 
 This header exposes
-- an object **Timer0** of class TinyTimer
-- setup0 and teardown0 functions
+- an object **Timer0Compare** of class TinyTimer
+- setup0CompareA and teardown0CompareA functions
 - **ISR(TIMER0_COMPA_vect)**
 
 Known problems:
 - the match value is 16-bit, which is low for the Timer0 capabilities.
 
-## [TinyTimer1](src/TinyTimer1.h)
+## [TinyTimer1Compare](src/TinyTimer1Compare.h)
 
 The implementation of ATTiny85 Timer1 "on compare" interrupt handler.
 
 This header exposes
-- an object **Timer1** of class TinyTimer
-- setup1 and teardown1 functions
+- an object **Timer1Compare** of class TinyTimer
+- setup1CompareA and teardown1CompareA functions
 - **ISR(TIMER1_COMPA_vect)**
 
 ## Extension points

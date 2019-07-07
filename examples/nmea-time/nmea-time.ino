@@ -1,5 +1,5 @@
 #include <TinySleep.h>
-#include <TinyTimer1.h>
+#include <TinyTimer1Compare.h>
 #include <TinyPinChangeB.h>
 #include <TinyUartReader.h>
 #include <TinyNmea.h>
@@ -42,7 +42,7 @@ TinyNmea<NmeaData> nmea(config, sizeof(config));
 
 int main() {
   sei();
-  uartReader.on(PB2, 9600, Timer1, PinChangeB);
+  uartReader.on(PB2, 9600, Timer1Compare, PinChangeB);
   while (1) {
     while (uartReader.inputAvailable()) {
       nmea.next(uartReader.read());

@@ -7,8 +7,8 @@
 #include <TinyTimer.h>
 #include <avr/interrupt.h>
 
-#define onCompareEnable1() TIMSK |= (1 << OCIE1A)
-#define onCompareDisable1() TIMSK &= ~(1 << OCIE1A)
+#define onCompareEnable1A() TIMSK |= (1 << OCIE1A)
+#define onCompareDisable1A() TIMSK &= ~(1 << OCIE1A)
 #define onOverflowEnable1() TIMSK |= (1 << TOIE1)
 #define onOverflowDisable1() TIMSK &= ~(1 << TOIE1)
 
@@ -17,34 +17,31 @@
 #define normalMode1() TCCR1 &= ~(1 << CTC1)
 #define compareMode1() TCCR1 |= (1 << CTC1)
 
-#define setMatch1(match) OCR1C = match
+#define setMatch1C(match) OCR1C = match
 
-void setup1(uint16_t match) {
+void setup1CompareA(uint16_t match) {
   compareMode1();
   cleanPrescale1();
   uint8_t prescale = 1;
-  //bool compensate = false;
   while (match > 0xFF) {
     prescale++;
-    //compensate = match & 1;
     if (match & 1) match++;
     match >>= 1;
   }
-  //if (!compensate) match--;
   setPrescale1(prescale);
-  setMatch1(match - 1);
-  onCompareEnable1();
+  setMatch1C(match - 1);
+  onCompareEnable1A();
 }
 
-void teardown1() {
-  onCompareDisable1();
+void teardown1CompareA() {
+  onCompareDisable1A();
   normalMode1();
 }
 
-TinyTimer Timer1(setup1, teardown1);
+TinyTimer Timer1Compare(setup1CompareA, teardown1CompareA);
 
 ISR(TIMER1_COMPA_vect) {
-  Timer1.onTimer();
+  Timer1Compare.onTimer();
 }
 
 #endif

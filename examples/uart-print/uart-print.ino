@@ -1,8 +1,8 @@
 #include <TinySerial.h>
-#include <TinyTimer1.h>
+#include <TinyTimer1Compare.h>
 #include <TinyPinChangeB.h>
 
-TinySerial serial(PB2, PB1, Timer1, PinChangeB);
+TinySerial serial(PB2, PB1, Timer1Compare, PinChangeB);
 
 void setup() {
   sei();
