@@ -4,12 +4,10 @@
 int main() {
   sei();
   Watchdog.arm(9, [](){
-    // do something after 1000*2^(9+1) cycles
+    // do something after 8 seconds
   });
-  ADCSRA = 0;
   deepSleep();
   // wakeup and sleep forever
   cli();
-  ADCSRA = 0;
   deepSleep();
 }

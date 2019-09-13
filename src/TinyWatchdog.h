@@ -4,7 +4,8 @@
 #ifndef TinyWatchdog_h
 #define TinyWatchdog_h
 
-#include <stdint.h>
+#include <avr/io.h>
+#include <avr/interrupt.h>
 
 typedef void (*WatchdogCallback)();
 
@@ -15,7 +16,7 @@ class TinyWatchdog {
   public:
     void arm(const uint8_t prescaler, WatchdogCallback callback) {
       onEvent = callback;
-      watchdogArm(callback!=0, false, prescaler);
+      watchdogArm(true, false, prescaler);
     }
     void armReset(const uint8_t prescaler, WatchdogCallback callback) {
       onEvent = callback;
