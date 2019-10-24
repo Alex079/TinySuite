@@ -13,20 +13,19 @@ typedef void (*WatchdogCallback)();
 #define watchdogDisarm() WDTCR = (1 << WDCE) | (1 << WDE); WDTCR = 0
 
 class TinyWatchdog {
-  public:
-    void arm(const uint8_t prescaler, WatchdogCallback callback) {
-      onEvent = callback;
-      watchdogArm(true, false, prescaler);
-    }
-    void armReset(const uint8_t prescaler, WatchdogCallback callback) {
-      onEvent = callback;
-      watchdogArm(callback!=0, true, prescaler);
-    }
-    void disarm() {
-      watchdogDisarm();
-    }
-    volatile WatchdogCallback onEvent;
-  private:
+public:
+  void arm(const uint8_t prescaler, WatchdogCallback callback) {
+    onEvent = callback;
+    watchdogArm(true, false, prescaler);
+  }
+  void armReset(const uint8_t prescaler, WatchdogCallback callback) {
+    onEvent = callback;
+    watchdogArm(callback!=0, true, prescaler);
+  }
+  void disarm() {
+    watchdogDisarm();
+  }
+  volatile WatchdogCallback onEvent;
 };
 
 TinyWatchdog Watchdog;

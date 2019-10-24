@@ -4,19 +4,20 @@
 #ifndef TinyUart_h
 #define TinyUart_h
 
+#include <stdint.h>
 #include <avr/io.h>
 #include <TinyUartBase.h>
 #include <TinyPinChange.h>
 #include <TinyTimer.h>
 
 class TinyUart : public TinyUartRead, public TinyUartWrite {
-  public:
-    void on(const uint8_t, const uint8_t, const uint32_t, TinyTimer&, TinyPinChange&);
-    void off();
-  private:
-    TinyTimer* timer;
-    TinyPinChange* pinChange;
-    uint8_t storedDDR, storedPORT, storedMask;
+public:
+  void on(const uint8_t, const uint8_t, const uint32_t, TinyTimer&, TinyPinChange&);
+  void off();
+private:
+  TinyTimer* timer;
+  TinyPinChange* pinChange;
+  uint8_t storedDDR, storedPORT, storedMask;
 };
 
 TinyUart uart;

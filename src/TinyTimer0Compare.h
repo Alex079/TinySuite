@@ -19,26 +19,24 @@
 
 #define setMatch0A(match) OCR0A = match
 
-void setup0CompareA(uint16_t match) {
-  compareMode0();
-  cleanPrescale0();
-  uint8_t prescale = 1;
-  while (match > 0xFF) {
-    prescale++;
-    if (match & 0b0100) match += 0b0100;
-    match >>= 3;
-  }
-  setPrescale0(prescale);
-  setMatch0A(match - 1);
-  onCompareEnable0A();
-}
-
-void teardown0CompareA() {
-  onCompareDisable0A();
-  normalMode0();
-}
-
-TinyTimer Timer0Compare(setup0CompareA, teardown0CompareA);
+TinyTimer Timer0Compare(
+  [](uint16_t match) {
+    compareMode0();
+    cleanPrescale0();
+    uint8_t prescale = 1;
+    while (match > 0xFF) {
+      prescale++;
+      if (match & 0b0100) match += 0b0100;
+      match >>= 3;
+    }
+    setPrescale0(prescale);
+    setMatch0A(match - 1);
+    onCompareEnable0A();
+  },
+  []() {
+    onCompareDisable0A();
+    normalMode0();
+  });
 
 ISR(TIMER0_COMPA_vect) {
   Timer0Compare.onTimer();

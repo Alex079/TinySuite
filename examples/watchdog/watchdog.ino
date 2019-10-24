@@ -1,5 +1,6 @@
 #include <TinyWatchdog.h>
 #include <TinySleep.h>
+#include <avr/interrupt.h>
 
 int main() {
   sei();

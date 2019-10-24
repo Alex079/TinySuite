@@ -19,26 +19,24 @@
 
 #define setMatch1C(match) OCR1C = match
 
-void setup1CompareA(uint16_t match) {
-  compareMode1();
-  cleanPrescale1();
-  uint8_t prescale = 1;
-  while (match > 0xFF) {
-    prescale++;
-    if (match & 1) match++;
-    match >>= 1;
-  }
-  setPrescale1(prescale);
-  setMatch1C(match - 1);
-  onCompareEnable1A();
-}
-
-void teardown1CompareA() {
-  onCompareDisable1A();
-  normalMode1();
-}
-
-TinyTimer Timer1Compare(setup1CompareA, teardown1CompareA);
+TinyTimer Timer1Compare(
+  [](uint16_t match) {
+    compareMode1();
+    cleanPrescale1();
+    uint8_t prescale = 1;
+    while (match > 0xFF) {
+      prescale++;
+      if (match & 1) match++;
+      match >>= 1;
+    }
+    setPrescale1(prescale);
+    setMatch1C(match - 1);
+    onCompareEnable1A();
+  },
+  []() {
+    onCompareDisable1A();
+    normalMode1();
+  });
 
 ISR(TIMER1_COMPA_vect) {
   Timer1Compare.onTimer();

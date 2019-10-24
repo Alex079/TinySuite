@@ -18,27 +18,27 @@
 #define TINY_UART_STATE_STOP 10
 
 class TinyUartRead {
-  public:
-    void    onRxPinChange(bool);
-    void    onTimerRx();
-    uint8_t inputAvailable() { return inputBuffer.countBusy(); }
-    uint8_t inputCapacity()  { return inputBuffer.countFree(); }
-    uint8_t peek()           { return inputBuffer.peek(); }
-    void    skip()           { inputBuffer.skip(); }
-    void    skipAll()        { inputBuffer.clear(); }
-    uint8_t read()           { return inputBuffer.get(); }
-    uint8_t blockingRead()   {
-      while (!inputBuffer.countBusy()) { idleSleep(); }
-      return inputBuffer.get();
-    }
-  protected:
-    uint8_t input;
-    volatile uint8_t inputState;
-    TinyBuffer inputBuffer;
-  private:
-    volatile uint8_t inputBitInProgress;
-    volatile uint8_t inputByte;
-    volatile bool inputBit;
+public:
+  void    onRxPinChange(bool);
+  void    onTimerRx();
+  uint8_t inputAvailable() { return inputBuffer.countBusy(); }
+  uint8_t inputCapacity()  { return inputBuffer.countFree(); }
+  uint8_t peek()           { return inputBuffer.peek(); }
+  void    skip()           { inputBuffer.skip(); }
+  void    skipAll()        { inputBuffer.clear(); }
+  uint8_t read()           { return inputBuffer.get(); }
+  uint8_t blockingRead()   {
+    while (!inputBuffer.countBusy()) { idleSleep(); }
+    return inputBuffer.get();
+  }
+protected:
+  uint8_t input;
+  volatile uint8_t inputState;
+  TinyBuffer inputBuffer;
+private:
+  volatile uint8_t inputBitInProgress;
+  volatile uint8_t inputByte;
+  volatile bool inputBit;
 };
 
 class TinyUartWrite {

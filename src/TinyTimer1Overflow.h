@@ -14,23 +14,21 @@
 #define cleanPrescale1() TCCR1 &= 0xF0
 #define normalMode1() TCCR1 &= ~(1 << CTC1)
 
-void setup1Overflow(uint16_t match) {
-  cleanPrescale1();
-  uint8_t prescale = 1;
-  while (match) {
-    prescale++;
-    if (match & 1) match++;
-    match >>= 1;
-  }
-  setPrescale1(prescale);
-  onOverflowEnable1();
-}
-
-void teardown1Overflow() {
-  onOverflowDisable1();
-}
-
-TinyTimer Timer1Overflow(setup1Overflow, teardown1Overflow);
+TinyTimer Timer1Overflow(
+  [](uint16_t match) {
+    cleanPrescale1();
+    uint8_t prescale = 1;
+    while (match) {
+      prescale++;
+      if (match & 1) match++;
+      match >>= 1;
+    }
+    setPrescale1(prescale);
+    onOverflowEnable1();
+  },
+  []() {
+    onOverflowDisable1();
+  });
 
 ISR(TIMER1_OVF_vect) {
   Timer1Overflow.onTimer();

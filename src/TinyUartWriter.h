@@ -4,17 +4,18 @@
 #ifndef TinyUartWriter_h
 #define TinyUartWriter_h
 
+#include <stdint.h>
 #include <avr/io.h>
 #include <TinyUartBase.h>
 #include <TinyTimer.h>
 
 class TinyUartWriter : public TinyUartWrite {
-  public:
-    void on(const uint8_t, const uint32_t, TinyTimer&);
-    void off();
-  private:
-    TinyTimer* timer;
-    uint8_t storedDDR, storedPORT, storedMask;
+public:
+  void on(const uint8_t, const uint32_t, TinyTimer&);
+  void off();
+private:
+  TinyTimer* timer;
+  uint8_t storedDDR, storedPORT, storedMask;
 };
 
 TinyUartWriter uartWriter;
