@@ -30,7 +30,6 @@ The implementation of ATTiny85 port B pin change interrupt handler.
 
 This header exposes
 - an object **PinChangeB** of class TinyPinChange
-- setupB and teardownB functions
 - **ISR(PCINT0_vect)**
 
 ### Defines
@@ -71,11 +70,18 @@ The implementation of ATTiny85 Timer0 "on compare" interrupt handler.
 
 This header exposes
 - an object **Timer0Compare** of class TinyTimer
-- setup0CompareA and teardown0CompareA functions
 - **ISR(TIMER0_COMPA_vect)**
 
 Known problems:
 - the match value is 16-bit, which is low for the Timer0 capabilities.
+
+## [TinyTimer0Overflow](src/TinyTimer0Overflow.h)
+
+The implementation of ATTiny85 Timer0 "on overflow" interrupt handler.
+
+This header exposes
+- an object **Timer0Overflow** of class TinyTimer
+- **ISR(TIMER0_OVF_vect)**
 
 ## [TinyTimer1Compare](src/TinyTimer1Compare.h)
 
@@ -83,12 +89,44 @@ The implementation of ATTiny85 Timer1 "on compare" interrupt handler.
 
 This header exposes
 - an object **Timer1Compare** of class TinyTimer
-- setup1CompareA and teardown1CompareA functions
 - **ISR(TIMER1_COMPA_vect)**
+
+## [TinyTimer1Overflow](src/TinyTimer1Overflow.h)
+
+The implementation of ATTiny85 Timer1 "on overflow" interrupt handler.
+
+This header exposes
+- an object **Timer1Overflow** of class TinyTimer
+- **ISR(TIMER1_OVF_vect)**
 
 ## Extension points
 
 It is possible to create other implementations as long as they are able to provide an instance of TinyTimer class.
+
+# Watchdog interrupt
+
+## [TinyWatchdog](src/TinyWatchdog.h)
+
+The implementation of ATTiny85 Watchdog control.
+
+This header exposes
+- an object **Watchdog** of class TinyWatchdog
+- **ISR(WDT_vect)**
+
+### Defines
+
+|Name|Description|
+|-|-|
+|watchdogArm(i, r, p)|Configure interrupt, reset, and prescaler.|
+|watchdogDisarm()|Disable the watchdog.|
+
+### Class TinyWatchdog
+
+|Method|Parameters|Return|Description|
+|-|-|-|-|
+|arm|prescaler, callback||Run the callback inside an ISR after timeout. Higher prescaler value (0-9) will cause longer delay.|
+|armReset|prescaler, callback||Run the callback inside an ISR after timeout and then reset after another timeout. If the callback is null, the reset is done after the first timeout. Higher prescaler value (0-9) will cause longer delay.|
+|disarm|||Disable the watchdog.|
 
 # Sleep utilities
 
@@ -178,7 +216,7 @@ The base for implementation of UART protocol. Normally, this header does not nee
 |onTimerTx|||The callback used internally to handle timer interrupt.|
 |outputRemaining||count|The amount of buffered outgoing bytes.|
 |outputCapacity||count|The amount of free space left in the output buffer.|
-|write|value||Get one byte from the input buffer. The value is removed from the buffer.|
+|write|value||Put one byte into the output buffer.|
 |blockingWrite|value||Performs checked "write". If there is no free space left in the output buffer, the main control flow will idle until the free space is available. The main control flow will idle until all the outgoing data is sent.|
 
 ## [TinyUart](src/TinyUart.h)
