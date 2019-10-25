@@ -1,0 +1,68 @@
+#######################################
+# Syntax Coloring Map
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+TinySerial	KEYWORD1
+TinyBuffer	KEYWORD1
+NmeaParser	KEYWORD1
+TinyNmea	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+on	KEYWORD2
+off	KEYWORD2
+begin	KEYWORD2
+end	KEYWORD2
+
+inputAvailable	KEYWORD2
+inputCapacity	KEYWORD2
+read	KEYWORD2
+blockingRead	KEYWORD2
+peek	KEYWORD2
+skip	KEYWORD2
+skipAll	KEYWORD2
+
+outputRemaining	KEYWORD2
+outputCapacity	KEYWORD2
+write	KEYWORD2
+blockingWrite	KEYWORD2
+
+countBusy	KEYWORD2
+countFree	KEYWORD2
+clear	KEYWORD2
+put	KEYWORD2
+get	KEYWORD2
+peek	KEYWORD2
+skip	KEYWORD2
+
+arm	KEYWORD2
+armReset	KEYWORD2
+disarm	KEYWORD2
+
+sleep	KEYWORD2
+deepSleep	KEYWORD2
+idleSleep	KEYWORD2
+
+#######################################
+# Instances (KEYWORD2)
+#######################################
+
+uart	KEYWORD2
+uartReader	KEYWORD2
+uartWriter	KEYWORD2
+PinChangeB	KEYWORD2
+Timer0Compare	KEYWORD2
+Timer0Overflow	KEYWORD2
+Timer1Compare	KEYWORD2
+Timer1Overflow	KEYWORD2
+Watchdog	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
