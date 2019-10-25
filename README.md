@@ -1,4 +1,4 @@
-# TinyComm
+# TinySuite
 
 A collection of utilities for ATTiny85.
 
