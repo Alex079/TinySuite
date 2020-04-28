@@ -40,6 +40,8 @@ public:
     uart.blockingWrite(v);
     return 1;
   }
+  virtual void flush() override {
+  }
 };
 
 #endif
