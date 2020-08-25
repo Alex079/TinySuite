@@ -72,9 +72,6 @@ This header exposes
 - an object **Timer0Compare** of class TinyTimer
 - **ISR(TIMER0_COMPA_vect)**
 
-Known problems:
-- the match value is 16-bit, which is low for the Timer0 capabilities.
-
 ## [TinyTimer0Overflow](src/TinyTimer0Overflow.h)
 
 The implementation of ATTiny85 Timer0 "on overflow" interrupt handler.
@@ -238,9 +235,6 @@ This header exposes an object **uart** of class TinyUart.
 
 [Example](examples/uart-loop/uart-loop.ino)
 
-Known problems:
-- explicit dependency on port B registers, which makes it harder to use on other ATTinys
-
 ### Class TinyUart
 
 This class inherits from both TinyUartRead and TinyUartWrite.
@@ -325,3 +319,9 @@ Features:
 |Field|Description|
 |-|-|
 |data|The data accumulated so far. The data format is defined by the caller.|
+
+# Known Problems:
+
+- Timer0 and Timer1 may not work correctly with ATTinyCore because of the core-specific initialization.
+- Timer0 match value is limited to 16-bit.
+- UART has explicit dependency on port B registers, which makes it harder to use on other ATTinys.
