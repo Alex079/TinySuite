@@ -14,3 +14,9 @@ int main() {
   }
   return 0;
 }
+
+FUSES = {
+  .low = 0xFF & FUSE_CKSEL1 & FUSE_CKSEL2 & FUSE_CKSEL3,
+  .high = 0xFF & FUSE_SPIEN & FUSE_EESAVE,
+  .extended = 0xFF
+};
