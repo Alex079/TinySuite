@@ -320,7 +320,7 @@ Features:
 |-|-|
 |data|The data accumulated so far. The data format is defined by the caller.|
 
-# Known Problems:
+# Known Problems
 
 - Timer0 and Timer1 may not work correctly with ATTinyCore because of the core-specific initialization.
 - Timer0 match value is limited to 16-bit.
