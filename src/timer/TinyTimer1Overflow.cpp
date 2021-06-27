@@ -1,21 +1,12 @@
-/*
-  TinyTimer
-*/
-#ifndef TinyTimer1_h
-#define TinyTimer1_h
-
-#include <TinyTimer.h>
 #include <avr/interrupt.h>
+#include "TinyTimer1Overflow.h"
 
-#define onCompareEnable1A() TIMSK |= (1 << OCIE1A)
-#define onCompareDisable1A() TIMSK &= ~(1 << OCIE1A)
+#define onOverflowEnable1() TIMSK |= (1 << TOIE1)
+#define onOverflowDisable1() TIMSK &= ~(1 << TOIE1)
 
 #define setPrescale1(prescale) TCCR1 |= (prescale & 0x0F)
 #define cleanPrescale1() TCCR1 &= 0xF0
 #define normalMode1() TCCR1 &= ~(1 << CTC1)
-#define compareMode1() TCCR1 |= (1 << CTC1)
-
-#define setMatch1C(match) OCR1C = match
 
 /*
 CS13 CS12 CS11 CS10
@@ -36,9 +27,9 @@ CS13 CS12 CS11 CS10
 1    1    1    0    clock /8192
 1    1    1    1    clock /16384
 */
-TinyTimer Timer1Compare(
+TinyTimer Timer1Overflow(
   [](uint16_t match) {
-    compareMode1();
+    normalMode1();
     cleanPrescale1();
     uint8_t prescale = 1;
     while (match > 256) {
@@ -46,16 +37,12 @@ TinyTimer Timer1Compare(
       match = (match >> 1) + (match & 1);
     }
     setPrescale1(prescale);
-    setMatch1C(match - 1);
-    onCompareEnable1A();
+    onOverflowEnable1();
   },
   []() {
-    onCompareDisable1A();
-    normalMode1();
+    onOverflowDisable1();
   });
 
-ISR(TIMER1_COMPA_vect) {
-  Timer1Compare.onTimer();
+ISR(TIMER1_OVF_vect) {
+  Timer1Overflow.onTimer();
 }
-
-#endif

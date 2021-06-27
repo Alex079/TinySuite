@@ -6,6 +6,12 @@
 # Datatypes (KEYWORD1)
 #######################################
 
+TinyPinChange KEYWORD1
+TinyTimer KEYWORD1
+TinyWatchdog KEYWORD1
+TinyUart KEYWORD1
+TinyUartReader KEYWORD1
+TinyUartWriter KEYWORD1
 TinySerial	KEYWORD1
 TinyBuffer	KEYWORD1
 NmeaParser	KEYWORD1
@@ -48,6 +54,8 @@ disarm	KEYWORD2
 sleep	KEYWORD2
 deepSleep	KEYWORD2
 idleSleep	KEYWORD2
+
+next KEYWORD2
 
 #######################################
 # Instances (KEYWORD2)

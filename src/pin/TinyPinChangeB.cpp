@@ -1,10 +1,4 @@
-/*
-  TinyPinChange
-*/
-#ifndef TinyPinChangeB_h
-#define TinyPinChangeB_h
-
-#include <TinyPinChange.h>
+#include "TinyPinChangeB.h"
 #include <avr/interrupt.h>
 
 #define TINY_PINB_CHANGE_MAX 6
@@ -41,5 +35,3 @@ ISR(PCINT0_vect) {
     pin++;
   }
 }
-
-#endif

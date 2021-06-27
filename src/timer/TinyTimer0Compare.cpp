@@ -1,10 +1,4 @@
-/*
-  TinyTimer
-*/
-#ifndef TinyTimer0_h
-#define TinyTimer0_h
-
-#include <TinyTimer.h>
+#include "TinyTimer0Compare.h"
 #include <avr/interrupt.h>
 
 #define onCompareEnable0A() TIMSK |= (1 << OCIE0A)
@@ -52,5 +46,3 @@ TinyTimer Timer0Compare(
 ISR(TIMER0_COMPA_vect) {
   Timer0Compare.onTimer();
 }
-
-#endif

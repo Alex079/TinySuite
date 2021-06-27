@@ -4,9 +4,9 @@ A collection of utilities for ATTiny85.
 
 # Pin change interrupt
 
-## [TinyPinChange](src/TinyPinChange.h)
+## [TinyPinChange](src/pin/TinyPinChange.h)
 
-The interface to a pin change interrupt handler implementation.
+The interface of a pin change interrupt handler implementation.
 
 ### Class TinyPinChange
 
@@ -24,19 +24,12 @@ The interface to a pin change interrupt handler implementation.
 |PinChangeSetup|A pointer to a setup function. The function may accept "pin" and "callback" as parameters and should return void.|
 |PinChangeTeardown|A pointer to a teardown function. The function may accept "pin" as parameters and should return void.|
 
-## [TinyPinChangeB](src/TinyPinChangeB.h)
+## [TinyPinChangeB](src/pin/TinyPinChangeB.h)
 
 The implementation of ATTiny85 port B pin change interrupt handler.
 
 This header exposes
 - an object **PinChangeB** of class TinyPinChange
-- **ISR(PCINT0_vect)**
-
-### Defines
-
-|Name|Description|
-|-|-|
-|TINY_PINB_CHANGE_MAX|The size of interrupt callback array. Equals to 6.|
 
 ## Extension points
 
@@ -44,9 +37,9 @@ It is possible to create other implementations as long as they are able to provi
 
 # Timer interrupt
 
-## [TinyTimer](src/TinyTimer.h)
+## [TinyTimer](src/timer/TinyTimer.h)
 
-The interface to a timer interrupt handler implementation.
+The interface of a timer interrupt handler implementation.
 
 ### Class TinyTimer
 
@@ -64,37 +57,33 @@ The interface to a timer interrupt handler implementation.
 |TimerSetup|A pointer to a setup function. The function may accept "ticks" as parameters and should return void.|
 |TimerTeardown|A pointer to a teardown function. The function should return void.|
 
-## [TinyTimer0Compare](src/TinyTimer0Compare.h)
+## [TinyTimer0Compare](src/timer/TinyTimer0Compare.h)
 
 The implementation of ATTiny85 Timer0 "on compare" interrupt handler.
 
 This header exposes
 - an object **Timer0Compare** of class TinyTimer
-- **ISR(TIMER0_COMPA_vect)**
 
-## [TinyTimer0Overflow](src/TinyTimer0Overflow.h)
+## [TinyTimer0Overflow](src/timer/TinyTimer0Overflow.h)
 
 The implementation of ATTiny85 Timer0 "on overflow" interrupt handler.
 
 This header exposes
 - an object **Timer0Overflow** of class TinyTimer
-- **ISR(TIMER0_OVF_vect)**
 
-## [TinyTimer1Compare](src/TinyTimer1Compare.h)
+## [TinyTimer1Compare](src/timer/TinyTimer1Compare.h)
 
 The implementation of ATTiny85 Timer1 "on compare" interrupt handler.
 
 This header exposes
 - an object **Timer1Compare** of class TinyTimer
-- **ISR(TIMER1_COMPA_vect)**
 
-## [TinyTimer1Overflow](src/TinyTimer1Overflow.h)
+## [TinyTimer1Overflow](src/timer/TinyTimer1Overflow.h)
 
 The implementation of ATTiny85 Timer1 "on overflow" interrupt handler.
 
 This header exposes
 - an object **Timer1Overflow** of class TinyTimer
-- **ISR(TIMER1_OVF_vect)**
 
 ## Extension points
 
@@ -102,13 +91,12 @@ It is possible to create other implementations as long as they are able to provi
 
 # Watchdog interrupt
 
-## [TinyWatchdog](src/TinyWatchdog.h)
+## [TinyWatchdog](src/util/TinyWatchdog.h)
 
 The implementation of ATTiny85 Watchdog control.
 
 This header exposes
 - an object **Watchdog** of class TinyWatchdog
-- **ISR(WDT_vect)**
 
 ### Defines
 
@@ -127,7 +115,7 @@ This header exposes
 
 # Sleep utilities
 
-## [TinySleep](src/TinySleep.h)
+## [TinySleep](src/util/TinySleep.h)
 
 A set of shortcut defines to put the ATTiny85 in sleep mode. PRR and ADCSRA are intact.
 
@@ -141,7 +129,7 @@ A set of shortcut defines to put the ATTiny85 in sleep mode. PRR and ADCSRA are 
 
 # Buffer
 
-## [TinyBuffer](src/TinyBuffer.h)
+## [TinyBuffer](src/util/TinyBuffer.h)
 
 The 16-byte ring buffer implementation. This implementation does not perform any validation (i.e. it is possible to "get" when "empty" and "put" when "full"), the caller is expected to maintain the buffer consistency.
 <pre>
@@ -180,17 +168,9 @@ ex.2.
 
 # UART
 
-## [TinyUartBase](src/TinyUartBase.h)
+## [TinyUartBase](src/uart/TinyUartBase.h)
 
 The base for implementation of UART protocol. Normally, this header does not need to be included explicitly.
-
-### Defines
-
-|Name|Description|
-|-|-|
-|TINY_UART_HALF_BIT_CLK|~0.5 bit duration in timer ticks. Equals to 2.|
-|TINY_UART_ONE_BIT_CLK|~1.0 bit duration in timer ticks. Equals to 3.|
-|TINY_UART_ONE_AND_HALF_BIT_CLK|~1.5 bit duration in timer ticks. Equals to 5.|
 
 ### Class TinyUartRead
 
@@ -216,7 +196,7 @@ The base for implementation of UART protocol. Normally, this header does not nee
 |write|value||Put one byte into the output buffer.|
 |blockingWrite|value||Performs checked "write". If there is no free space left in the output buffer, the main control flow will idle until the free space is available. The main control flow will idle until all the outgoing data is sent.|
 
-## [TinyUart](src/TinyUart.h)
+## [TinyUart](src/uart/TinyUart.h)
 
 The implementation of UART protocol:
 - 8-bit value transmission
@@ -244,7 +224,7 @@ This class inherits from both TinyUartRead and TinyUartWrite.
 |on|rx, tx, baud, timer, pinChange||Start the UART. The "timer" will be enabled to interrupt at around "baud" * "TINY_UART_ONE_BIT_CLK" rate. The "pinChange" will be enabled to interrupt on "rx" pin level change.|
 |off|||Stop the UART. The "timer" will be stopped, the "pinChange" will be disabled.|
 
-## [TinyUartReader](src/TinyUartReader.h)
+## [TinyUartReader](src/uart/TinyUartReader.h)
 
 The implementation of receive-only UART.
 
@@ -261,7 +241,7 @@ This class inherits from TinyUartRead.
 |on|rx, baud, timer, pinChange||Start the UART. The "timer" will be enabled to interrupt at around "baud" * "TINY_UART_ONE_BIT_CLK" rate. The "pinChange" will be enabled to interrupt on "rx" pin level change.|
 |off|||Stop the UART. The "timer" will be stopped, the "pinChange" will be disabled.|
 
-## [TinyUartWriter](src/TinyUartWriter.h)
+## [TinyUartWriter](src/uart/TinyUartWriter.h)
 
 The implementation of transmit-only UART.
 
@@ -278,7 +258,7 @@ This class inherits from TinyUartWrite.
 |on|tx, baud, timer||Start the UART. The "timer" will be enabled to interrupt at around "baud" * "TINY_UART_ONE_BIT_CLK" rate.|
 |off|||Stop the UART. The "timer" will be stopped.|
 
-## [TinySerial](src/TinySerial.h)
+## [TinySerial](src/uart/TinySerial.h)
 
 The implementation of UART using Stream interface (Stream.h) and Tiny UART (TinyUart.h) backend.
 
@@ -290,7 +270,7 @@ This class inherits from Stream. See Stream.h from Arduino for details.
 
 # NMEA parser
 
-## [TinyNmea](src/TinyNmea.h)
+## [TinyNmea](src/util/TinyNmea.h)
 
 The NMEA sentence delegating parser implementation.
 
@@ -313,12 +293,8 @@ Features:
 
 |Method|Parameters|Return|Description|
 |-|-|-|-|
-|(init)|\<D>, parsers, parsersCount||Instantiate the parser. "D" is the templated data type to use for results storage. The "parsers" is the array of "parsersCount" size, which contains "NmeaParser" structures.|
+|(init)|parsers, parsersCount||Instantiate the parser. The "parsers" is the array of "parsersCount" size, which contains "NmeaParser" structures.|
 |next|char||Feed the parser with one character.|
-
-|Field|Description|
-|-|-|
-|data|The data accumulated so far. The data format is defined by the caller.|
 
 # Known Problems
 

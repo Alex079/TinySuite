@@ -1,11 +1,5 @@
-/*
-  TinyTimer
-*/
-#ifndef TinyTimer0_h
-#define TinyTimer0_h
-
-#include <TinyTimer.h>
 #include <avr/interrupt.h>
+#include "TinyTimer0Overflow.h"
 
 #define onOverflowEnable0() TIMSK |= (1 << TOIE0)
 #define onOverflowDisable0() TIMSK &= ~(1 << TOIE0)
@@ -47,5 +41,3 @@ TinyTimer Timer0Overflow(
 ISR(TIMER0_OVF_vect) {
   Timer0Overflow.onTimer();
 }
-
-#endif

@@ -1,5 +1,6 @@
-#include <TinyUart.h>
+#include <avr/interrupt.h>
 #include <TinySleep.h>
+#include <TinyUart.h>
 #include <TinyTimer1Compare.h>
 #include <TinyPinChangeB.h>
 

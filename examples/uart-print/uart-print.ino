@@ -1,3 +1,5 @@
+#include <avr/interrupt.h>
+#include <Arduino.h>
 #include <TinySerial.h>
 #include <TinyTimer1Compare.h>
 #include <TinyPinChangeB.h>

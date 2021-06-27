@@ -1,27 +1,9 @@
-/*
-  TinyUART
-*/
-#ifndef TinyUartWriter_h
-#define TinyUartWriter_h
-
 #include <stdint.h>
 #include <avr/io.h>
-#include <TinyUartBase.h>
-#include <TinyTimer.h>
+#include "TinyUartWriter.h"
+#include "TinyUartConst.h"
 
-class TinyUartWriter : public TinyUartWrite {
-public:
-  void on(const uint8_t, const uint32_t, TinyTimer&);
-  void off();
-private:
-  TinyTimer* timer;
-  uint8_t storedDDR, storedPORT, storedMask;
-};
-
-TinyUartWriter uartWriter;
-
-void TinyUartWriter::on(const uint8_t tx, const uint32_t baud,
-                        TinyTimer& clockInterrupt) {
+void TinyUartWriter::on(const uint8_t tx, const uint32_t baud, TinyTimer& clockInterrupt) {
   output = tx;
   timer = &clockInterrupt;
 
@@ -49,4 +31,4 @@ void TinyUartWriter::off() {
   PORTB = (PORTB & ~storedMask) | storedPORT;
 }
 
-#endif
+TinyUartWriter uartWriter;

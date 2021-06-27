@@ -1,29 +1,9 @@
-/*
-  TinyUART
-*/
-#ifndef TinyUartReader_h
-#define TinyUartReader_h
-
 #include <stdint.h>
 #include <avr/io.h>
-#include <TinyUartBase.h>
-#include <TinyPinChange.h>
-#include <TinyTimer.h>
+#include "TinyUartReader.h"
+#include "TinyUartConst.h"
 
-class TinyUartReader : public TinyUartRead {
-public:
-  void on(const uint8_t, const uint32_t, TinyTimer&, TinyPinChange&);
-  void off();
-private:
-  TinyTimer* timer;
-  TinyPinChange* pinChange;
-  uint8_t storedDDR, storedPORT, storedMask;
-};
-
-TinyUartReader uartReader;
-
-void TinyUartReader::on(const uint8_t rx, const uint32_t baud,
-                        TinyTimer& clockInterrupt, TinyPinChange& rxInterrupt) {
+void TinyUartReader::on(const uint8_t rx, const uint32_t baud, TinyTimer& clockInterrupt, TinyPinChange& rxInterrupt) {
   input = rx;
   timer = &clockInterrupt;
   pinChange = &rxInterrupt;
@@ -57,4 +37,4 @@ void TinyUartReader::off() {
   PORTB = (PORTB & ~storedMask) | storedPORT;
 }
 
-#endif
+TinyUartReader uartReader;

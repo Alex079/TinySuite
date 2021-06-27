@@ -1,16 +1,6 @@
-/*
-  TinyNMEA
-*/
-#ifndef TinyNmea_h
-#define TinyNmea_h
-
 #include <stdint.h>
-
-template <class D>
-struct NmeaParser {
-  char type[3];
-  void (*call) (D*, const char*, const uint8_t);
-};
+#include <stdlib.h>
+#include "TinyNmea.h"
 
 #define TINY_NMEA_STATE_NONE 0
 #define TINY_NMEA_STATE_TYPE 1
@@ -21,27 +11,7 @@ struct NmeaParser {
 #define TINY_NMEA_CHAR_SPLIT ','
 #define TINY_NMEA_CHAR_STOP  '*'
 
-#define TINY_NMEA_SENTENCE_BUFFER_SIZE 70
-
-template <class D>
-class TinyNmea {
-public:
-  TinyNmea(const NmeaParser<D> parsers[], const uint8_t parsersCount) : parsers(parsers), parsersCount(parsersCount) {}
-  void next(const char);
-  D data = {};
-private:
-  void dispatch();
-  const NmeaParser<D>* parsers;
-  const uint8_t parsersCount;
-  uint8_t parserIndex;
-  uint8_t charIndex, termsCount, checksum;
-  uint8_t state = TINY_NMEA_STATE_NONE;
-  char temp[5];
-  char buffer[TINY_NMEA_SENTENCE_BUFFER_SIZE + 1] = {}; // ${talker:1-2}{type:3},{data:70}*{sum:2} total max length is 80
-};
-
-template <class D>
-void TinyNmea<D>::next(const char x) {
+void TinyNmea::next(const char x) {
   switch (state) {
     case TINY_NMEA_STATE_NONE:
       switch (x) {
@@ -114,13 +84,10 @@ void TinyNmea<D>::next(const char x) {
   }
 }
 
-template <class D>
-void TinyNmea<D>::dispatch() {
+void TinyNmea::dispatch() {
   uint8_t position = 0;
   for (uint8_t termIndex = 0; termIndex < termsCount; termIndex++) {
-    parsers[parserIndex].call(&data, &buffer[position], termIndex);
+    parsers[parserIndex].call(&buffer[position], termIndex);
     while (buffer[position++]);
   }
 }
-
-#endif
