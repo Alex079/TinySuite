@@ -2,10 +2,7 @@
 #define TinyBuffer_h
 
 #include <stdint.h>
-
-#define TINY_UART_BUFFER_SIZE 16
-#define TINY_UART_BUFFER_MASK 15
-#define next_buffer_index(p) ((p+1) & TINY_UART_BUFFER_MASK)
+#include "TinyBufferConst.h"
 
 class TinyBuffer {
   private:

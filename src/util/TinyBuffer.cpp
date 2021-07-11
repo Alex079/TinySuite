@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include "TinyBuffer.h"
+#include "TinyBufferConst.h"
 
 uint8_t TinyBuffer::countBusy() {
   return (head < tail) ? (TINY_UART_BUFFER_SIZE + head - tail) : (head - tail);

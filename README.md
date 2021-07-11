@@ -98,13 +98,6 @@ The implementation of ATTiny85 Watchdog control.
 This header exposes
 - an object **Watchdog** of class TinyWatchdog
 
-### Defines
-
-|Name|Description|
-|-|-|
-|watchdogArm(i, r, p)|Configure interrupt, reset, and prescaler.|
-|watchdogDisarm()|Disable the watchdog.|
-
 ### Class TinyWatchdog
 
 |Method|Parameters|Return|Description|
@@ -145,14 +138,6 @@ ex.2.
           ↑         ↑  
        head      tail  
 </pre>
-
-### Defines
-
-|Name|Description|
-|-|-|
-|TINY_UART_BUFFER_SIZE|A fixed value of 16.|
-|TINY_UART_BUFFER_MASK|A fixed value of 15.|
-|next_buffer_index(p)|Get next buffer index modulo size.|
 
 ### Class TinyBuffer
 
@@ -287,7 +272,7 @@ Features:
 |Field|Description|
 |-|-|
 |type|Last three symbols of NMEA sentence type designator. Used in parser lookup, type match is "ends with", case-sensitive.|
-|call|A pointer to parser function to invoke when the matching NMEA sentence is received. The function may accept "data" (the already parsed data in user-defined format), "term" (the C-String containing NMEA term), and "termIndex" (a 0-based index of the term in the sentence).|
+|call|A pointer to parser function to invoke when the matching NMEA sentence is received. The function may accept "term" (the C-String containing NMEA term) and "termIndex" (a 0-based index of the term in the sentence).|
 
 ### Class TinyNmea
 
