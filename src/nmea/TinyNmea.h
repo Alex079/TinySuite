@@ -2,6 +2,7 @@
 #define TinyNmea_h
 
 #include <stdint.h>
+#include "TinyNmeaConst.h"
 
 struct NmeaParser {
   char type[3];
@@ -20,7 +21,7 @@ class TinyNmea {
     const uint8_t parsersCount;
     uint8_t parserIndex;
     uint8_t charIndex, termsCount, checksum;
-    uint8_t state = 0;
+    uint8_t state = TINY_NMEA_STATE_NONE;
     char temp[5];
     char buffer[TINY_NMEA_SENTENCE_BUFFER_SIZE + 1] = {}; // ${talker:1-2}{type:3},{data:70}*{sum:2} total max length is 80
 };
