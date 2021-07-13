@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 #include "TinyUartBase.h"
-#include "../timer/TinyTimer.h"
+#include "TinyTimer.h"
 
 class TinyUartWriter : public TinyUartWrite {
   public:

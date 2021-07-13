@@ -12,8 +12,8 @@ typedef void (*TimerTeardown)();
 class TinyTimer {
   public:
     TinyTimer(TimerSetup setup, TimerTeardown teardown) : setup(setup), teardown(teardown) {}
-    void on(const uint16_t match, TimerCallback callback) { onTimer = callback; setup(match); }
-    void off() { teardown(); onTimer = 0; }
+    void on(const uint16_t match, TimerCallback callback);
+    void off();
     volatile TimerCallback onTimer;
   private:
     TimerSetup setup;

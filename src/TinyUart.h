@@ -4,8 +4,8 @@
 #include <stdint.h>
 #include <avr/io.h>
 #include "TinyUartBase.h"
-#include "../pin/TinyPinChange.h"
-#include "../timer/TinyTimer.h"
+#include "TinyPinChange.h"
+#include "TinyTimer.h"
 
 class TinyUart : public TinyUartRead, public TinyUartWrite {
   public:

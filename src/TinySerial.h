@@ -3,8 +3,8 @@
 
 #include <stdint.h>
 #include <Stream.h>
-#include "../pin/TinyPinChange.h"
-#include "../timer/TinyTimer.h"
+#include "TinyPinChange.h"
+#include "TinyTimer.h"
 
 class TinySerial : public Stream {
   private:

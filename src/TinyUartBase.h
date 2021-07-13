@@ -2,8 +2,8 @@
 #define TinyUartBase_h
 
 #include <stdint.h>
-#include "../util/TinySleep.h"
-#include "../util/TinyBuffer.h"
+#include "TinySleep.h"
+#include "TinyBuffer.h"
 
 class TinyUartRead {
   public:
