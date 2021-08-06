@@ -1,3 +1,4 @@
+#include <avr/interrupt.h>
 #include <TinyUartReader.h>
 #include <TinySleep.h>
 #include <TinyTimer1Compare.h>

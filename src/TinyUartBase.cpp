@@ -1,11 +1,40 @@
-/*
-  TinyUART
-*/
-#include <TinyUartBase.h>
 #include <avr/io.h>
+#include "TinyUartBase.h"
+#include "TinyUartConst.h"
 
 #define setHigh(p) PORTB |= (1 << p)
 #define setLow(p) PORTB &= ~(1 << p)
+
+uint8_t TinyUartRead::inputAvailable() {
+  return inputBuffer.countBusy();
+}
+
+uint8_t TinyUartRead::inputCapacity() {
+  return inputBuffer.countFree();
+}
+
+uint8_t TinyUartRead::peek() {
+  return inputBuffer.peek();
+}
+
+void TinyUartRead::skip() {
+  inputBuffer.skip();
+}
+
+void TinyUartRead::skipAll() {
+  inputBuffer.clear();
+}
+
+uint8_t TinyUartRead::read() {
+  return inputBuffer.get();
+}
+
+uint8_t TinyUartRead::blockingRead() {
+  while (!inputBuffer.countBusy()) {
+    idleSleep();
+  }
+  return inputBuffer.get();
+}
 
 void TinyUartRead::onRxPinChange(bool value) {
   inputBit = value;
@@ -75,6 +104,28 @@ void TinyUartRead::onTimerRx() {
       inputBitInProgress = TINY_UART_ONE_BIT_CLK;
       inputState++;
       break;
+  }
+}
+
+uint8_t TinyUartWrite::outputRemaining() {
+  return outputBuffer.countBusy();
+}
+
+uint8_t TinyUartWrite::outputCapacity() {
+  return outputBuffer.countFree();
+}
+
+void TinyUartWrite::write(const uint8_t v) {
+  outputBuffer.put(v);
+}
+
+void TinyUartWrite::blockingWrite(const uint8_t v) {
+  while (!outputBuffer.countFree()) {
+    idleSleep();
+  }
+  outputBuffer.put(v);
+  while (outputBuffer.countBusy()) {
+    idleSleep();
   }
 }
 

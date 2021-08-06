@@ -1,6 +1,3 @@
-/*
-  TinySleep
-*/
 #ifndef TinySleep_h
 #define TinySleep_h
 

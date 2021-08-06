@@ -1,6 +1,6 @@
+#include <avr/interrupt.h>
 #include <TinyTimer0Overflow.h>
 #include <TinyTimer1Overflow.h>
-#include <avr/io.h>
 
 int main() {
   sei();

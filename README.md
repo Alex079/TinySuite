@@ -6,7 +6,7 @@ A collection of utilities for ATTiny85.
 
 ## [TinyPinChange](src/TinyPinChange.h)
 
-The interface to a pin change interrupt handler implementation.
+The interface of a pin change interrupt handler implementation.
 
 ### Class TinyPinChange
 
@@ -30,13 +30,6 @@ The implementation of ATTiny85 port B pin change interrupt handler.
 
 This header exposes
 - an object **PinChangeB** of class TinyPinChange
-- **ISR(PCINT0_vect)**
-
-### Defines
-
-|Name|Description|
-|-|-|
-|TINY_PINB_CHANGE_MAX|The size of interrupt callback array. Equals to 6.|
 
 ## Extension points
 
@@ -46,7 +39,7 @@ It is possible to create other implementations as long as they are able to provi
 
 ## [TinyTimer](src/TinyTimer.h)
 
-The interface to a timer interrupt handler implementation.
+The interface of a timer interrupt handler implementation.
 
 ### Class TinyTimer
 
@@ -70,7 +63,6 @@ The implementation of ATTiny85 Timer0 "on compare" interrupt handler.
 
 This header exposes
 - an object **Timer0Compare** of class TinyTimer
-- **ISR(TIMER0_COMPA_vect)**
 
 ## [TinyTimer0Overflow](src/TinyTimer0Overflow.h)
 
@@ -78,7 +70,6 @@ The implementation of ATTiny85 Timer0 "on overflow" interrupt handler.
 
 This header exposes
 - an object **Timer0Overflow** of class TinyTimer
-- **ISR(TIMER0_OVF_vect)**
 
 ## [TinyTimer1Compare](src/TinyTimer1Compare.h)
 
@@ -86,7 +77,6 @@ The implementation of ATTiny85 Timer1 "on compare" interrupt handler.
 
 This header exposes
 - an object **Timer1Compare** of class TinyTimer
-- **ISR(TIMER1_COMPA_vect)**
 
 ## [TinyTimer1Overflow](src/TinyTimer1Overflow.h)
 
@@ -94,7 +84,6 @@ The implementation of ATTiny85 Timer1 "on overflow" interrupt handler.
 
 This header exposes
 - an object **Timer1Overflow** of class TinyTimer
-- **ISR(TIMER1_OVF_vect)**
 
 ## Extension points
 
@@ -108,14 +97,6 @@ The implementation of ATTiny85 Watchdog control.
 
 This header exposes
 - an object **Watchdog** of class TinyWatchdog
-- **ISR(WDT_vect)**
-
-### Defines
-
-|Name|Description|
-|-|-|
-|watchdogArm(i, r, p)|Configure interrupt, reset, and prescaler.|
-|watchdogDisarm()|Disable the watchdog.|
 
 ### Class TinyWatchdog
 
@@ -158,14 +139,6 @@ ex.2.
        head      tail  
 </pre>
 
-### Defines
-
-|Name|Description|
-|-|-|
-|TINY_UART_BUFFER_SIZE|A fixed value of 16.|
-|TINY_UART_BUFFER_MASK|A fixed value of 15.|
-|next_buffer_index(p)|Get next buffer index modulo size.|
-
 ### Class TinyBuffer
 
 |Method|Parameters|Return|Description|
@@ -183,14 +156,6 @@ ex.2.
 ## [TinyUartBase](src/TinyUartBase.h)
 
 The base for implementation of UART protocol. Normally, this header does not need to be included explicitly.
-
-### Defines
-
-|Name|Description|
-|-|-|
-|TINY_UART_HALF_BIT_CLK|~0.5 bit duration in timer ticks. Equals to 2.|
-|TINY_UART_ONE_BIT_CLK|~1.0 bit duration in timer ticks. Equals to 3.|
-|TINY_UART_ONE_AND_HALF_BIT_CLK|~1.5 bit duration in timer ticks. Equals to 5.|
 
 ### Class TinyUartRead
 
@@ -307,18 +272,14 @@ Features:
 |Field|Description|
 |-|-|
 |type|Last three symbols of NMEA sentence type designator. Used in parser lookup, type match is "ends with", case-sensitive.|
-|call|A pointer to parser function to invoke when the matching NMEA sentence is received. The function may accept "data" (the already parsed data in user-defined format), "term" (the C-String containing NMEA term), and "termIndex" (a 0-based index of the term in the sentence).|
+|call|A pointer to parser function to invoke when the matching NMEA sentence is received. The function may accept "term" (the C-String containing NMEA term) and "termIndex" (a 0-based index of the term in the sentence).|
 
 ### Class TinyNmea
 
 |Method|Parameters|Return|Description|
 |-|-|-|-|
-|(init)|\<D>, parsers, parsersCount||Instantiate the parser. "D" is the templated data type to use for results storage. The "parsers" is the array of "parsersCount" size, which contains "NmeaParser" structures.|
+|(init)|parsers, parsersCount||Instantiate the parser. The "parsers" is the array of "parsersCount" size, which contains "NmeaParser" structures.|
 |next|char||Feed the parser with one character.|
-
-|Field|Description|
-|-|-|
-|data|The data accumulated so far. The data format is defined by the caller.|
 
 # Known Problems
 
