@@ -9,6 +9,8 @@
 #define normalMode1() TCCR1 &= ~(1 << CTC1)
 
 /*
+max match value: 0x3FC000
+
 CS13 CS12 CS11 CS10
 0    0    0    0    stopped
 0    0    0    1    clock
@@ -28,7 +30,8 @@ CS13 CS12 CS11 CS10
 1    1    1    1    clock /16384
 */
 TinyTimer Timer1Overflow(
-  [](uint16_t match) {
+  [](uint32_t match) {
+    if (match > 0x3FC000) return;
     normalMode1();
     cleanPrescale1();
     uint8_t prescale = 1;
@@ -43,6 +46,10 @@ TinyTimer Timer1Overflow(
     onOverflowDisable1();
   });
 
+inline void _ISRTimerCallbackFunction() {
+  if (Timer1Overflow.onTimer) Timer1Overflow.onTimer();
+}
+
 ISR(TIMER1_OVF_vect) {
-  Timer1Overflow.onTimer();
+  _ISRTimerCallbackFunction();
 }

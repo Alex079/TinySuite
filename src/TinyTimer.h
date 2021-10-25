@@ -5,17 +5,18 @@
 
 typedef void (*TimerCallback)();
 
-typedef void (*TimerSetup)(uint16_t);
+typedef void (*TimerSetup)(uint32_t);
 
 typedef void (*TimerTeardown)();
 
 class TinyTimer {
+  friend void _ISRTimerCallbackFunction();
   public:
     TinyTimer(TimerSetup setup, TimerTeardown teardown) : setup(setup), teardown(teardown) {}
-    void on(const uint16_t match, TimerCallback callback);
+    void on(const uint32_t match, TimerCallback callback);
     void off();
-    volatile TimerCallback onTimer;
   private:
+    volatile TimerCallback onTimer;
     TimerSetup setup;
     TimerTeardown teardown;
 };
