@@ -22,6 +22,10 @@ void TinyWatchdog::disarm() {
 
 TinyWatchdog Watchdog;
 
-ISR(WDT_vect) {
+inline void _ISRWatchdogEventCallback() {
   if (Watchdog.onEvent) Watchdog.onEvent();
+}
+
+ISR(WDT_vect) {
+  _ISRWatchdogEventCallback();
 }
