@@ -135,6 +135,12 @@ Features:
 - delegation of value extraction to provided parsers
 - orchestration of parsing
 
+This header exposes
+- NmeaParser structure
+- TinyNmea class
+
+See [TinyNmea](TinyNmea.md) for details.
+
 [Example](examples/nmea-time/main.cpp)
 
 ## Known Problems
