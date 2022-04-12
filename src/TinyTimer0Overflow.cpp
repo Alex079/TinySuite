@@ -9,6 +9,8 @@
 #define normalMode0() TCCR0A &= ~(1 << WGM00) & ~(1 << WGM01); TCCR0B &= ~(1 << WGM02)
 
 /*
+max match value: 0x3FC00
+
 CS02 CS01 CS00
 0    0    0    stopped
 0    0    1    clock
@@ -18,7 +20,8 @@ CS02 CS01 CS00
 1    0    1    clock /1024
 */
 TinyTimer Timer0Overflow(
-  [](uint16_t match) {
+  [](uint32_t match) {
+    if (match > 0x3FC00) return;
     normalMode0();
     cleanPrescale0();
     uint8_t prescale = 1;
@@ -38,6 +41,10 @@ TinyTimer Timer0Overflow(
     onOverflowDisable0();
   });
 
+inline void _ISRTimerCallbackFunction() {
+  if (Timer0Overflow.onTimer) Timer0Overflow.onTimer();
+}
+
 ISR(TIMER0_OVF_vect) {
-  Timer0Overflow.onTimer();
+  _ISRTimerCallbackFunction();
 }

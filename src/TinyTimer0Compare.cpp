@@ -12,6 +12,8 @@
 #define setMatch0A(match) OCR0A = match
 
 /*
+max match value: 0x3FC00
+
 CS02 CS01 CS00
 0    0    0    stopped
 0    0    1    clock
@@ -21,7 +23,8 @@ CS02 CS01 CS00
 1    0    1    clock /1024
 */
 TinyTimer Timer0Compare(
-  [](uint16_t match) {
+  [](uint32_t match) {
+    if (match > 0x3FC00) return;
     compareMode0();
     cleanPrescale0();
     uint8_t prescale = 1;
@@ -43,6 +46,10 @@ TinyTimer Timer0Compare(
     normalMode0();
   });
 
+inline void _ISRTimerCallbackFunction() {
+  if (Timer0Compare.onTimer) Timer0Compare.onTimer();
+}
+
 ISR(TIMER0_COMPA_vect) {
-  Timer0Compare.onTimer();
+  _ISRTimerCallbackFunction();
 }
