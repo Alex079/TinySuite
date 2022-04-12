@@ -9,7 +9,7 @@ void onInterrupt() {
 int main()
 {
     sei();
-    // interrupt when INT0 (pin 7) has low level
+    // interrupt when INT0 (pin 7) has LOW level (RISING or FALLING do not wake up from deep sleep)
     ExternalInterrupt0.on(LOW, onInterrupt);
     while (1) {
         deepSleep();
