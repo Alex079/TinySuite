@@ -7,6 +7,7 @@
 #######################################
 
 TinyPinChange KEYWORD1
+TinyExternalInterrupt KEYWORD1
 TinyTimer KEYWORD1
 TinyWatchdog KEYWORD1
 TinyUart KEYWORD1
@@ -65,6 +66,7 @@ uart	KEYWORD2
 uartReader	KEYWORD2
 uartWriter	KEYWORD2
 PinChangeB	KEYWORD2
+ExternalInterrupt0 KEYWORD2
 Timer0Compare	KEYWORD2
 Timer0Overflow	KEYWORD2
 Timer1Compare	KEYWORD2
