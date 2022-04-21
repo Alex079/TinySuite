@@ -11,17 +11,6 @@
 
 #define setMatch0A(match) OCR0A = match
 
-/*
-max match value: 0x3FC00
-
-CS02 CS01 CS00
-0    0    0    stopped
-0    0    1    clock
-0    1    0    clock /8
-0    1    1    clock /64
-1    0    0    clock /256
-1    0    1    clock /1024
-*/
 TinyTimer Timer0Compare(
   [](uint32_t match) {
     if (match > 0x3FC00) return;

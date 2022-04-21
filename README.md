@@ -8,7 +8,7 @@ A collection of utilities for ATTiny85.
 
 The implementation of ATTiny85 port B pin change interrupt handler.
 
-This header exposes an object **PinChangeB** of class [TinyPinChange](TinyPinChange.md).
+This header exposes an object **PinChangeB** of class [TinyPinChange](src/TinyPinChange.h).
 
 ## External interrupt
 
@@ -16,7 +16,7 @@ This header exposes an object **PinChangeB** of class [TinyPinChange](TinyPinCha
 
 The implementation of ATTiny85 external interrupt handler.
 
-This header exposes an object **ExternalInterrupt0** of class [TinyExternalInterrupt](TinyExternalInterrupt.md).
+This header exposes an object **ExternalInterrupt0** of class [TinyExternalInterrupt](src/TinyExternalInterrupt.h).
 
 [Example](examples/external-interrupt/main.cpp)
 
@@ -26,25 +26,25 @@ This header exposes an object **ExternalInterrupt0** of class [TinyExternalInter
 
 The implementation of ATTiny85 Timer0 "on compare" interrupt handler.
 
-This header exposes an object **Timer0Compare** of class [TinyTimer](TinyTimer.md).
+This header exposes an object **Timer0Compare** of class [TinyTimer](src/TinyTimer.h).
 
 ### [TinyTimer0Overflow](src/TinyTimer0Overflow.h)
 
 The implementation of ATTiny85 Timer0 "on overflow" interrupt handler.
 
-This header exposes an object **Timer0Overflow** of class [TinyTimer](TinyTimer.md).
+This header exposes an object **Timer0Overflow** of class [TinyTimer](src/TinyTimer.h).
 
 ### [TinyTimer1Compare](src/TinyTimer1Compare.h)
 
 The implementation of ATTiny85 Timer1 "on compare" interrupt handler.
 
-This header exposes an object **Timer1Compare** of class [TinyTimer](TinyTimer.md).
+This header exposes an object **Timer1Compare** of class [TinyTimer](src/TinyTimer.h).
 
 ### [TinyTimer1Overflow](src/TinyTimer1Overflow.h)
 
 The implementation of ATTiny85 Timer1 "on overflow" interrupt handler.
 
-This header exposes an object **Timer1Overflow** of class [TinyTimer](TinyTimer.md).
+This header exposes an object **Timer1Overflow** of class [TinyTimer](src/TinyTimer.h).
 
 [Example](examples/timer-overflow/main.cpp)
 
@@ -54,7 +54,7 @@ This header exposes an object **Timer1Overflow** of class [TinyTimer](TinyTimer.
 
 The implementation of ATTiny85 Watchdog controller.
 
-This header exposes an object **Watchdog** of class [TinyWatchdog](TinyWatchdog.md).
+This header exposes an object **Watchdog** of class TinyWatchdog.
 
 [Example](examples/watchdog/main.cpp)
 
@@ -76,7 +76,7 @@ This header exposes:
 
 The 16-byte ring buffer implementation. This implementation does not perform any validation (i.e. it is possible to "get" when "empty" and "put" when "full"), the caller is expected to maintain the buffer consistency.
 
-This header exposes the class [TinyBuffer](TinyBuffer.md).
+This header exposes the class **TinyBuffer**.
 
 ## UART
 
@@ -95,7 +95,7 @@ Features:
 - can use Timer0 or Timer1
 - RX and TX are the IDs from the board definition (i.e. PB0)
 
-This header exposes an object **uart** of class [TinyUart](TinyUart.md).
+This header exposes an object **uart** of class TinyUart.
 
 [Example](examples/uart-loop/main.cpp)
 
@@ -103,7 +103,7 @@ This header exposes an object **uart** of class [TinyUart](TinyUart.md).
 
 The implementation of receive-only UART.
 
-This header exposes an object **uartReader** of class [TinyUartReader](TinyUartReader.md).
+This header exposes an object **uartReader** of class TinyUartReader.
 
 [Example](examples/uart-reader/main.cpp)
 
@@ -111,13 +111,15 @@ This header exposes an object **uartReader** of class [TinyUartReader](TinyUartR
 
 The implementation of transmit-only UART.
 
-This header exposes an object **uartWriter** of class [TinyUartWriter](TinyUartWriter.md).
+This header exposes an object **uartWriter** of class TinyUartWriter.md.
 
 [Example](examples/uart-writer/main.cpp)
 
 ### [TinySerial](src/TinySerial.h)
 
 The implementation of UART using Stream interface (Stream.h) and Tiny UART (TinyUart.h) backend.
+
+This header exposes the class **TinySerial**.
 
 This class inherits from Stream. See Stream.h from Arduino for details.
 
@@ -138,8 +140,6 @@ Features:
 This header exposes
 - NmeaParser structure
 - TinyNmea class
-
-See [TinyNmea](TinyNmea.md) for details.
 
 [Example](examples/nmea-time/main.cpp)
 

@@ -1,13 +1,19 @@
 #include <stdint.h>
 #include "TinyBuffer.h"
-#include "TinyBufferConst.h"
+
+#define next_buffer_index(p) ((p+1) % TINY_BUFFER_SIZE)
+#define TINY_BUFFER_CAPACITY (TINY_BUFFER_SIZE - 1)
 
 uint8_t TinyBuffer::countBusy() {
-  return (head < tail) ? (TINY_UART_BUFFER_SIZE + head - tail) : (head - tail);
+  uint8_t h = head;
+  uint8_t t = tail;
+  return (h < t) ? (TINY_BUFFER_SIZE + h - t) : (h - t);
 }
 
 uint8_t TinyBuffer::countFree() {
-  return TINY_UART_BUFFER_MASK - countBusy();
+  uint8_t h = head;
+  uint8_t t = tail;
+  return (t < h) ? (TINY_BUFFER_CAPACITY + t - h) : (t - h);
 }
 
 void TinyBuffer::clear() {

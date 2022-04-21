@@ -1,37 +1,42 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include "TinyNmea.h"
-#include "TinyNmeaConst.h"
+
+enum NmeaMarker: char {
+  START_MARKER = '$',
+  SPLIT_MARKER = ',',
+  STOP_MARKER = '*'
+};
 
 void TinyNmea::next(const char x) {
   switch (state) {
-    case TINY_NMEA_STATE_NONE:
+    case NONE:
       switch (x) {
-        case TINY_NMEA_CHAR_START:
-          state = TINY_NMEA_STATE_TYPE;
+        case START_MARKER:
+          state = TYPE;
           charIndex = 0;
           termsCount = 0;
           checksum = 0;
           break;
       }
       break;
-    case TINY_NMEA_STATE_TYPE:
+    case TYPE:
       checksum ^= x;
       switch (x) {
-        case TINY_NMEA_CHAR_SPLIT:
+        case SPLIT_MARKER:
           if (charIndex > 2) {
             for (parserIndex = 0; parserIndex < parsersCount; parserIndex++) {
               if (parsers[parserIndex].type[0] == temp[charIndex-3] &&
                   parsers[parserIndex].type[1] == temp[charIndex-2] &&
                   parsers[parserIndex].type[2] == temp[charIndex-1]) {
-                state = TINY_NMEA_STATE_DATA;
+                state = DATA;
                 charIndex = 0;
                 termsCount = 0;
                 return;
               }
             }
           }
-          state = TINY_NMEA_STATE_NONE;
+          state = NONE;
           break;
         default:
           if (charIndex < 5) {
@@ -40,17 +45,17 @@ void TinyNmea::next(const char x) {
           break;
       }
       break;
-    case TINY_NMEA_STATE_DATA:
+    case DATA:
       switch (x) {
-        case TINY_NMEA_CHAR_SPLIT:
+        case SPLIT_MARKER:
           checksum ^= x;
           buffer[charIndex++] = 0;
           termsCount++;
           break;
-        case TINY_NMEA_CHAR_STOP:
+        case STOP_MARKER:
           buffer[charIndex] = 0;
           termsCount++;
-          state = TINY_NMEA_STATE_SUM;
+          state = SUM;
           charIndex = 0;
           break;
         default:
@@ -61,9 +66,9 @@ void TinyNmea::next(const char x) {
           break;
       }
       break;
-    case TINY_NMEA_STATE_SUM:
+    case SUM:
       if (charIndex > 1) {
-        state = TINY_NMEA_STATE_NONE;
+        state = NONE;
         temp[charIndex] = 0;
         if (strtol(temp, 0, 16) == checksum) {
           dispatch();
