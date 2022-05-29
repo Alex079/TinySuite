@@ -19,7 +19,7 @@ TinyTimer Timer1Compare(
     uint8_t prescale = 1;
     while (match > 256) {
       prescale++;
-      match = (match >> 1) + (match & 1);
+      match = (match + 1) >> 1;
     }
     setPrescale1(prescale);
     setMatch1C(match - 1);

@@ -16,7 +16,7 @@ TinyTimer Timer1Overflow(
     uint8_t prescale = 1;
     while (match > 256) {
       prescale++;
-      match = (match >> 1) + (match & 1);
+      match = (match + 1) >> 1;
     }
     setPrescale1(prescale);
     onOverflowEnable1();

@@ -17,10 +17,10 @@ TinyTimer Timer0Overflow(
     while (match > 256) {
       prescale++;
       if (prescale > 3) {
-        match = (match >> 2) + ((match >> 1) & 1);
+        match = (match + 2) >> 2;
       }
       else {
-        match = (match >> 3) + ((match >> 2) & 1);
+        match = (match + 4) >> 3;
       }
     }
     setPrescale0(prescale);
