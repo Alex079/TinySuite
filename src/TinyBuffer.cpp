@@ -13,7 +13,7 @@ uint8_t TinyBuffer::countBusy() {
 uint8_t TinyBuffer::countFree() {
   uint8_t h = head;
   uint8_t t = tail;
-  return (t < h) ? (TINY_BUFFER_CAPACITY + t - h) : (t - h);
+  return (h < t) ? (t - h - 1) : (TINY_BUFFER_CAPACITY + t - h);
 }
 
 void TinyBuffer::clear() {
