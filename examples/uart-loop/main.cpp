@@ -17,3 +17,11 @@ int main() {
   }
   return 0;
 }
+
+/* Commented out because Arduino dumps ELF file into HEX file for flashing
+// FUSES = {
+//   .low = 0xFF & FUSE_CKSEL1 & FUSE_CKSEL2 & FUSE_CKSEL3, // F_CPU: 16 MHz
+//   .high = 0xFF & FUSE_SPIEN & FUSE_EESAVE,
+//   .extended = 0xFF
+// };
+*/
